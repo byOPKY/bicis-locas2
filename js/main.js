@@ -18,12 +18,13 @@ function validateForm(){
 
     if(name.length == 0 && lastname.length == 0 && email.length == 0 && inputPassword.length == 0)
         alert("Ingrese los campos") 
+
         //Email
-        var expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-
-     if (expr.test(email))
-        true;
-
+    var expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (expr.test(email)){
+        var cuadroNegro = document.getElementsByClassName("input-box")[2];
+    	verificar(cuadroNegro.getElementsByTagName("span")[0], cuadroNegro);
+    }
     else if(email == ""){
     	var cuadroNegro = document.getElementsByClassName("input-box")[2];
     	cuadroDeValidación.innerHTML= "Ingrese su correo por favor.";
@@ -39,19 +40,27 @@ function validateForm(){
 
         //Seleccionar una opción
 
-    if( document.querySelector("select").value == 0 )
+    if( document.querySelector("select").value == 0 ){
     	var cuadroNegro = document.getElementsByClassName("input-box")[4];
         cuadroDeValidación2.innerHTML= "Seleccione un tipo de Bici";
     	cuadroNegro.appendChild(cuadroDeValidación2);
-    	cuadroNegro.classList.toggle("error");
+    	cuadroNegro.classList.toggle("error");}
+    else {
+    	var cuadroNegro = document.getElementsByClassName("input-box")[4];
+    	verificar(cuadroNegro.getElementsByTagName("span")[0], cuadroNegro);
+    }
 
         //Contraseña
         var contra = document.getElementById("input-password").value;
-    if (contra.length< 6 || (contra == "password") || (contra == "123456") || (contra=="098754")) 
+    if (contra.length< 6 || (contra == "password") || (contra == "123456") || (contra=="098754")) {
        var cuadroNegro = document.getElementsByClassName("input-box")[3];
-        cuadroDeValidación3.innerHTML= "Password no valido";
+        cuadroDeValidación3.innerHTML= "Password no valido, minimo 6 caracteres";
     	cuadroNegro.appendChild(cuadroDeValidación3);
-    	cuadroNegro.classList.toggle("error");
+    	cuadroNegro.classList.toggle("error");}
+    else{
+    	var cuadroNegro = document.getElementsByClassName("input-box")[3];
+    	verificar(cuadroNegro.getElementsByTagName("span")[0], cuadroNegro);
+    }
 
 
         // Para los campos nombre y apellido la primera letra debe ser mayúscula
@@ -66,8 +75,10 @@ function validateForm(){
     	cuadroNegro.classList.toggle("error");
       }
 
-    else
-        return true;
+    else{
+    	var cuadroNegro = document.getElementsByClassName("input-box")[0];
+    	verificar(cuadroNegro.getElementsByTagName("span")[0], cuadroNegro);
+    }
         
         /* lastname*/  
     if (lastname.charAt(0) == lastname.charAt(0).toLowerCase()){
@@ -77,13 +88,18 @@ function validateForm(){
     	cuadroNegro.classList.toggle("error");
       }
        
-    else
-        return true;
+    else{
+    	var cuadroNegro = document.getElementsByClassName("input-box")[1];
+    	verificar(cuadroNegro.getElementsByTagName("span")[0], cuadroNegro);
+    }
 
     var expreg = /^[a-z][a-z]*/;
 
-    if(expreg.test(name))
-        true
+    if(expreg.test(name)) {
+    	var cuadroNegro = document.getElementsByClassName("input-box")[0];
+    	verificar(cuadroNegro.getElementsByTagName("span")[0], cuadroNegro);
+    }
+
     else{
     	var cuadroNegro = document.getElementsByClassName("input-box")[0];
         cuadroDeValidación6.innerHTML= "El campo nombre sólo permiten caracteres de la A-Z";
@@ -92,17 +108,28 @@ function validateForm(){
       }
         
         
-    if(expreg.test(lastname))
-        true    
+    if(expreg.test(lastname)){
+    	var cuadroNegro = document.getElementsByClassName("input-box")[1];
+    	verificar(cuadroNegro.getElementsByTagName("span")[0], cuadroNegro);
+    }
+  
     else{
     	var cuadroNegro = document.getElementsByClassName("input-box")[1];
         cuadroDeValidación7.innerHTML= "El campo apellido sólo permiten caracteres de la A-Z";
     	cuadroNegro.appendChild(cuadroDeValidación7);
     	cuadroNegro.classList.toggle("error");
       }
+
+
+	function verificar(a,b){
+	if( a!= null){
+        b.removeChild(a);
+	}
+    else{
+    	true; }
+    }
+
 }
-
-
 
 
 
